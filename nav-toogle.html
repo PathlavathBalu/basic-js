@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+#toogleNav{
+  display:none;
+  background: blue;
+  color:#fff;
+}
+.toogle-cntr{
+  background: blue;
+  color:#fff;
+  margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.main-header a{
+  color: #fff;
+}
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  .nav-text{
+    display: none;
+  }
+  .nav-item .fa{
+    font-size: 30px;
+  }
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="row wrapper">
+    <div class="col-sm-2 main-sidebar">
+      <div class="row toogle-cntr">
+        <div class="col-sm-12" style="padding-left: 0">
+          <header class="main-header">
+            <a href="#" class="sidebar-toggle" onclick="toggleNav()" style="    display: inline-block;padding: 10px;background: red;"
+              data-toggle="push-menu" role="button">
+              <i class="fa fa-align-justify" style="font-size: 35px"></i>
+            </a>
+            <!-- Logo -->
+            <a href="javascript::void" class="logo">
+              <span class="logo-lg main-sidebar-color"><b>Snithik</b></span>
+            </a>
+          </header>
+        </div>
+      </div>
+      <!-- Left side column. contains the logo and sidebar -->
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- sidebar: style can be found in sidebar.less -->
+          <section class="sidebar main-sidebar-color" id="toogleNav">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu nav nav-pills flex-column">
+              <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}">
+                <a  routerLink="/admin/dashboard"><i class="fa fa-dashboard"></i><span class="nav-text">Dashboard</span></a>
+              </li>
+              <li class="nav-item">
+                <a  routerLink="/admin/leads" [ngClass]="{'collapsed': globals.adminMenuPath !== 'leads'}">
+                  <i class="fa fa-files-o"></i><span class="nav-text">Leads</span>
+                </a>
+                <div id="leadsMenu" [ngClass]="{'collapse show': globals.adminMenuPath === 'leads'}">
+                  <ul class="nav flex-column snk-mar-stl">
+                    <li class="nav-item"><a routerLink="/admin/createlead"><i class="fa fa-podcast" aria-hidden="true"></i><span class="snk-mar-span nav-text">Create Lead</span></a></li>
+                    <li class="nav-item" [hidden]="user.userRole != 'ROLE_ADMIN' && user.userRole != 'ROLE_SUPERVISOR'">
+                      <a routerLink="/admin/assignments"><i class="fa fa-grav" aria-hidden="true"></i><span class="snk-mar-span nav-text">Assignments</span></a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}">
+                <a  routerLink="/admin/regions" [ngClass]="{'collapsed': globals.adminMenuPath !== 'regions'}">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i><span class="nav-text">>Regions Master</span</a>
+              </li>
+              <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN' && user.userRole != 'ROLE_SUPERVISOR'}">
+                <a  routerLink="/admin/user" [ngClass]="{'collapsed': globals.adminMenuPath !== 'users'}">
+                  <i class="fa fa-users" aria-hidden="true"></i><span class="nav-text">Users Master</span></a>
+              </li>
+              <hr/>
+              <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}">
+                <a routerLink="/admin/reports"><i class="fa fa-flag" aria-hidden="true"></i><span class="nav-text">Reports</span></a></li>
+              <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}">
+                <a  routerLink="/admin/setup-data" [ngClass]="{'collapsed': globals.adminMenuPath !== 'regions'}">
+                  <i class="fa fa-binoculars" aria-hidden="true"></i><span class="nav-text">Lead Master</span></a>
+                <div id="setUpMenu" [ngClass]="{'collapse show': globals.adminMenuPath === 'setups'}">
+                  <ul class="nav flex-column snk-mar-stl">
+                    <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}"><a routerLink="/admin/principals"><i class="fa fa-puzzle-piece" aria-hidden="true"></i><span class="snk-mar-span nav-text">Principals</span></a></li>
+                    <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}"><a routerLink="/admin/inventories"><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="snk-mar-span nav-text">Sale Products</span></a></li>
+                    <li class="nav-item" [ngClass]="{'hidden' : user.userRole != 'ROLE_ADMIN'}"><a routerLink="/admin/services"><i class="fa fa-server" aria-hidden="true"></i><span class="snk-mar-span nav-text">Service Types</span></a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-10 nopadding-left">
+    <div>
+      <header class="main-header">
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+          <div class="row">
+          <div class="col-sm-6 col-md-6"><button class="text-btn" disabled>{{this.globals.header}}</button></div>
+          <div class="navbar-custom-menu col-sm-6 col-md-6">
+            <ul class="nav navbar-nav pull-right">
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="/assets/images/user2.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs">&nbsp;</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="/assets/images/user2.jpg" class="img-circle" alt="User Image">
+                    <p>Jone Doe - Web Developer
+                      <small>Member since Nov. 2012</small>
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="/user/profile" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a (click)="logout()" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- Control Sidebar Toggle Button -->
+              <li>
+                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              </li>
+            </ul>
+          </div>
+          </div>
+        </nav>
+      </header>
+      <hr class="nopadding-left"/>
+      <router-outlet></router-outlet>
+      <!-- /.content-wrapper -->
+      <hr/>
+      <footer class="main-footer">
+        <div class="row">
+          <div class="col-sm-12 ">
+              <strong>&nbsp;Copyright &copy; 2019 <a href="http://www.snithik.com" target="_blank">Snithik Technologies Pvt.Ltd.</a></strong> All rights reserved.
+          </div>
+        </div>
+      </footer>
+      <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div>
+  </div>
+  </div>
+
+
+<script>
+function toggleNav() {
+  var x = document.getElementById("toogleNav");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+// toggleNav() { (click)='toggleNav'
+//   var x = document.getElementById("toogleNav");
+//   if (x.style.display === "block") {
+//     x.style.display = "none";
+//   } else {
+//     x.style.display = "block";
+//   }
+// }
+</script>
+
+</body>
+</html>
+
